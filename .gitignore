@@ -1,9 +1,16 @@
-<<<<<<< HEAD
-=======
 .vscode
 .env
-venv
->>>>>>> 809b5ea1503441d80dbcff9c8808dff31c73b92d
+venv/
+
+# Daeyeong Jeon's gitignore
+
+# Jeongsun Choi's gitignore
+
+# Jisu Park's gitignore
+
+# Wansang Kim's gitignore
+djangovenv
+__pycache__/
 
 # Created by https://www.toptal.com/developers/gitignore/api/django,vscode
 # Edit at https://www.toptal.com/developers/gitignore?templates=django,vscode

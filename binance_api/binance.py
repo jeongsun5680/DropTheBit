@@ -46,5 +46,6 @@ if __name__ == "__main__":
     print(connectivity())
     print(exchangInfo())
     print(priceInfo())
-    '''print(upbit())
+    '''
+    print(upbit())
     #print(binance())
