@@ -3,7 +3,7 @@
 venv
 
 # Daeyeong Jeon's gitignore
-
+backend/api/market.py
 # Jeongsun Choi's gitignore
 
 # Jisu Park's gitignore
