@@ -1,4 +1,4 @@
-from api import binance, upbit, exchange_rate #upbit, binance, exchange_rate의 값을 호출
+from .api import binance, upbit, exchange_rate #upbit, binance, exchange_rate의 값을 호출
 import json
 
 bprice = binance.Binance()['price'][0] #bprice = 바이낸스 가격 호출 /type(float)
