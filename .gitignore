@@ -5,13 +5,20 @@ venv/
 # Daeyeong Jeon's gitignore
 backend/api/market.py
 backend/api/dd.py
+
 # Jeongsun Choi's gitignore
 
 # Jisu Park's gitignore
 
 # Wansang Kim's gitignore
 djangovenv
+<<<<<<< HEAD
 __pycache__/
+=======
+__pycache__
+test.py
+test2.py
+>>>>>>> 0e6b7e6feb214602bae17b31b2f51622d5199ba4
 
 # Created by https://www.toptal.com/developers/gitignore/api/django,vscode
 # Edit at https://www.toptal.com/developers/gitignore?templates=django,vscode
