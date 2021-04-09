@@ -10,6 +10,10 @@
 5. 마켓별 코인 원화 가격 구하기
    - 판다스에 저장된 데이터 불러오기
 """
+
+from api import binance, upbit, exchange_rate, market
+import json
+
 # Global Variable
 # exchange rate
 # TODO 01: 환율 받아오기(1200원 부분 바꾸기)
@@ -19,56 +23,61 @@ TARGET_MARKET = ["Binance", "Coinone"]
 
 
 # params : 코인목록, 업비트, 거래소 목록
-def get_all_coin_info(symbols, std_market, tar_market):
+def get_all_coin_info(coins, std_market, tar_market):
     all_coin_info = []
-    for symbol in symbols:
-        all_coin_info.append(get_one_coin_info(symbol, std_market, tar_market))
+    for coin in coins:
+        all_coin_info.append(get_one_coin_info(coin, std_market, tar_market))
 
     return all_coin_info
 
 
-def get_one_coin_info(symbol, std_market, tar_market):
+def get_one_coin_info(coin, std_market, tar_market):
     one_coin_info = {
-        "id": symbol,
-        "name_kr": get_name_kr(symbol),
-        "name_en": get_name_en(symbol),
+        "id": coin,
+        "name_kr": get_name_kr(coin),
+        "name_en": get_name_en(coin),
         "standard": {
             "market": std_market,
-            "market_KRW": get_price_KRW(symbol, std_market),
-            "market_USD": get_price_USD(symbol, std_market),
+            "market_KRW": get_price_KRW(coin, std_market),
+            "market_USD": get_price_USD(coin, std_market),
         },
-        "target": get_target_lst(symbol, tar_market)
+        "target": get_target_lst(coin, tar_market)
     }
 
     return one_coin_info
 
 
 # TODO 02: 코인별 kr 이름 받아오기
-def get_name_kr(symbol):
+def get_name_kr(coin):
     name_kr = ''
-
+    # DB에서 coin에 대한 한글 이름 받아서 name_kr에 저장
     return name_kr
 
 
 # TODO 03: 코인별 en 이름 받아오기
-def get_name_en(symbol):
+def get_name_en(coin):
     name_en = ''
-
+    # DB에서 coin에 대한 영어 이름 받아서 name_kr에 저장
     return name_en
 
 
 # TODO 04: 마켓별 코인 달러 가격 구하기
-def get_price_USD(market_name, symbol):
+def get_price_USD(coin, market):
+    # binance일 때, 예외
+    # 환율 값 받아오기
+    # return 마켓가격/환율
     pass
 
 
 # TODO 05: 마켓별 코인 원화 가격 구하기
-def get_price_KRW(market_name, symbol):
+def get_price_KRW(coin, market):
+    # binance일 때, 예외
+    # 마켓에서 가격 
     pass
 
 
 # TODO 06: 타겟 리스트들의 KRW값, USD값, 차이값(KRW, USD), 퍼센트 구해서 타겟 리스트로 반환
-def get_target_lst(symbol, tar_market=None):
+def get_target_lst(coin, tar_market=None):
     # 타겟 마켓이 아무것도 없으면(None 이면)
     if tar_market is None:
         return []

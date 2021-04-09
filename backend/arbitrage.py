@@ -59,7 +59,7 @@ coin_list=['BTC', 'ETH']
           diff_USD: 1111132,
           diff_percent: 1442,
         }],
-      },
+      }, 
 
 
 
