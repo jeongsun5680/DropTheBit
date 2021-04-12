@@ -13,6 +13,7 @@ import LayoutComponent from '../components/Layout';
 import Login from '../pages/login';
 import Register from '../pages/register';
 import { logoutUser } from '../actions/user';
+import {CoinApi} from '../api/api';
 
 const PrivateRoute = ({dispatch, component, ...rest }) => {
     if (!Login.isAuthenticated(JSON.parse(localStorage.getItem('authenticated')))) {
@@ -29,8 +30,12 @@ const CloseButton = ({closeToast}) => <i onClick={closeToast} className="la la-c
 
 class App extends React.PureComponent {
   render() {
+        const red = new CoinApi();
+        const blue = red.coinList();
+        console.log(blue);
     return (
         <div>
+            
             <ToastContainer
                 autoClose={5000}
                 hideProgressBar
@@ -48,6 +53,7 @@ class App extends React.PureComponent {
                     <Redirect from="*" to="/app/main/dashboard"/>
                 </Switch>
             </HashRouter>
+            
         </div>
 
     );
