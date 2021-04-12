@@ -1,8 +1,21 @@
 import React, { Component } from "react";
+import {CoinApi} from '../../../api/api';
 
 class CoinInfo extends Component {
+  constructor(props){
+    super(props);
+    this.state={
+      flag : false,
+    }
+  }
+  axiosRes = {};
+  componentDidMount(){
+    const axiosApi = new CoinApi();
+    axiosApi.coinList().then(res => this.axiosRes = res).then(console.log(this.axiosRes)).then(this.setState({flag:true}));
+  }
   render() {
     // var { id, name_kr, name_en } = this.state.props;
+
     var lists = [
       {
         id: "BTC",
@@ -43,9 +56,9 @@ class CoinInfo extends Component {
     ];
     return (
       <tbody>
-        {lists.map((row) => (
+        {(this.state.flag) ? this.axiosRes.map((row) => (
           <tr>
-            <td>1</td>
+            <td>{row}</td>
             <td>
               <img
                 src={"https://static.upbit.com/logos/" + row.id + ".png"}
@@ -66,7 +79,7 @@ class CoinInfo extends Component {
               {row.target.diff_KRW} ({row.target.diff_percent}%)
             </td>
           </tr>
-        ))}
+        )): " nothing"}
       </tbody>
     );
   }

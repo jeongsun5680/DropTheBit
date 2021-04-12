@@ -11,7 +11,7 @@ def get_all_coins(request):
     반환된 가격을 dict 형태로 전달한다. Response({'user':'jisu'})
     """
     # call backend function
-    dict_total = {
+    dict_total = [{
         "id": "BTC",
         "name_kr": "비트코인",
         "name_en": "Bitcoin",
@@ -31,7 +31,7 @@ def get_all_coins(request):
                 "diff_percent": ((uprice - bprice_krw) / uprice) * 100
             }
         ]
-    }
+    }]
     return Response({'data':dict_total})
 
 

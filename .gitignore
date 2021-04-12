@@ -12,13 +12,9 @@ backend/api/dd.py
 
 # Wansang Kim's gitignore
 djangovenv
-<<<<<<< HEAD
-__pycache__/
-=======
 __pycache__
 test.py
 test2.py
->>>>>>> 0e6b7e6feb214602bae17b31b2f51622d5199ba4
 
 # Created by https://www.toptal.com/developers/gitignore/api/django,vscode
 # Edit at https://www.toptal.com/developers/gitignore?templates=django,vscode
