@@ -39,16 +39,9 @@ def get_market(market):
         elif(str(type(Market_result))=="<class 'list'>"):
             # 업비트의 price는 binance와 1000:1 관계
             price = Market_result[0][url_info[market][coin]['price']]
-        
-        #dict_coin_info ={}
-        #dict_res['market'] = market
-        #dict_coin_info['coin_type'] = coin
-        #dict_coin_info['price'] = price
+
         dict_coin_info[coin] = price
 
-        #res_list.append(dict_res)
-        
-    #list_dict = {i : res_list[i] for i in range(len(res_list))}
     dict_res[market] = dict_coin_info
 
     # str_Market_result = json.dumps(list_dict)
@@ -65,21 +58,12 @@ def get_market(market):
     # # 이 pandas_Market_result의 생김새 때문에 아래 get_market_all에서 key value를 올바르게 쪼갤 수 없는 거임
     return dict_res
 
+
 def get_market_all():
     dict_market = {}
     for key in url_info.keys():
         market = get_market(key)
         dict_market[key] = market[key]
-
-        # print('-----dict_market을 구할거임--------')
-        # print(dict_market)
-
-        # key를 가지고 get_market(key)
-        # 결과 값을 다시 key, value로 쪼개
-        # 새로운 dict에 key, value를 연속적으로 넣어
-        #list_market.append(get_market(key))
-    #pandas_Market_result = pd.DataFrame(dict_market)
-
     return dict_market
 
 def get_coin_info():
@@ -89,8 +73,7 @@ def get_coin_info():
 
     return dict_market1
 
-# print(get_market_all())
-
+print(get_market_all())
 
 #음... 판다스로 값을 불러올 때, dict 형식이 아니기 때문에 key, value로 쪼개서 다시 배치할 수가 없다! 해결해줘!
 #test.py로 넘겨줘야 할 형식은 다음과 같다! 왜? 완상이형이 짜준 코드가 그러니까!!!!
