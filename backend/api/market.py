@@ -47,19 +47,9 @@ def get_market(market):
         #dict_coin_info['price'] = price
         dict_coin_info[coin] = price
 
-        #res_list.append(dict_res)
-        
-    #list_dict = {i : res_list[i] for i in range(len(res_list))}
     dict_res[market] = dict_coin_info
-
-    # str_Market_result = json.dumps(list_dict)
-    # json_Market_result = json.loads(str_Market_result) #json의 string 형태의 객체에서 json 형식 내용을 추출할 때 사용한다.
-    # pandas_Market_result = json_normalize(json_Market_result) #json에서 데이터프레임을 쉽게 생성하도록 도움을 준다
-    # pandas_Market_result = pd.DataFrame(list_dict)
-    print('-------판다스 하기 전에 dict형식---------')
-    print(dict_res)
-    
     pandas_Market_result = pd.DataFrame(dict_res)
+    
     print('-------판다스, 문제의 원인 나야나---------')
     print(pandas_Market_result)
     # 이 pandas_Market_result의 생김새 때문에 아래 get_market_all에서 key value를 올바르게 쪼갤 수 없는 거임
@@ -75,12 +65,16 @@ def get_market_all():
         # key를 가지고 get_market(key)
         # 결과 값을 다시 key, value로 쪼개
         # 새로운 dict에 key, value를 연속적으로 넣어
-        #list_market.append(get_market(key))
 
     return dict_market
 
 print(get_market_all())
 
+
+# str_Market_result = json.dumps(list_dict)
+# json_Market_result = json.loads(str_Market_result) #json의 string 형태의 객체에서 json 형식 내용을 추출할 때 사용한다.
+# pandas_Market_result = json_normalize(json_Market_result) #json에서 데이터프레임을 쉽게 생성하도록 도움을 준다
+# pandas_Market_result = pd.DataFrame(list_dict)
 
 #음... 판다스로 값을 불러올 때, dict 형식이 아니기 때문에 key, value로 쪼개서 다시 배치할 수가 없다! 해결해줘!
 #test.py로 넘겨줘야 할 형식은 다음과 같다! 왜? 완상이형이 짜준 코드가 그러니까!!!!
