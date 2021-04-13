@@ -6,9 +6,9 @@ import json
 def get_login(request):
     user_id = request.POST('user_id')
     user_pw = request.POST('user_pw')
-    # dbUserData = MongoDbManager().get_user_from_db({'id':user_id, 'pw':user_pw}) -> # 없는 정보면 dbUserData의 리턴값이 null 일지, 아니면 특정한 default의 뭐가 올지 모르겠다.. 우선 if문으로 처리하자
+    # dbUserData = MongoDbManager().get_user_from_db({'user_id':user_id, 'user_pw':user_pw}) -> # 없는 정보면 dbUserData의 리턴값이 null 일지, 아니면 특정한 default의 뭐가 올지 모르겠다.. 우선 if문으로 처리하자
     if dbUserData is None:
-        # dbUserData = MongoDbManager().get_user_from_db({'id':user_id})
+        # dbUserData = MongoDbManager().get_user_from_db({'user_id':user_id})
         #if dbUserData is None:
         #    # return HttpResponse("회원정보가 존재하지 않습니다", status = 404)
         #    pass
@@ -18,7 +18,7 @@ def get_login(request):
         pass
     else:
         # del dbUserData['_id'] -> 임의로 오는 '_id'라는 것을 지워주고 리턴
-        # return HttpResponse(json.dumps(dbUserData), status=200)
+        # return HttpResponse(json.dumps(dbUserData), status=200) #그냥 status 값만 보내주면 된다, 나중에 json 삭제 필요
         pass
 
 
