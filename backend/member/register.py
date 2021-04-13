@@ -1,5 +1,5 @@
 import djongo
-import django.http import httpResponse
+from django.http import httpResponse
 # user_id, user_pw, email, name
     # 아이디
     # 아이디 리턴 값이 있으면 -> 400
