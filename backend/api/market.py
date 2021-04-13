@@ -1,7 +1,6 @@
 import requests, json
+import pyupbit
 import pandas as pd , dataframe
-import numpy as np
-from pandas.io.json import json_normalize
 from django.shortcuts import render
 from django.http import HttpResponse
 
@@ -21,7 +20,9 @@ url_info = {
 # ----------------------------------------------------------------------------------
 
 def get_market(market):
-    res_list =[]
+    #res_list =[]
+    dict_coin_info ={}
+    dict_res = {}
     index = 0
     price = 0.1
     symbol = ""
@@ -39,24 +40,63 @@ def get_market(market):
             # 업비트의 price는 binance와 1000:1 관계
             price = Market_result[0][url_info[market][coin]['price']]
         
-        dict_res ={}
-        dict_res['market'] = market
-        dict_res['coin_type'] = coin
-        dict_res['price'] = price
-        res_list.append(dict_res)
+        #dict_coin_info ={}
+        #dict_res['market'] = market
+        #dict_coin_info['coin_type'] = coin
+        #dict_coin_info['price'] = price
+        dict_coin_info[coin] = price
+
+        #res_list.append(dict_res)
         
-    list_dict = {i : res_list[i] for i in range(len(res_list))}
+    #list_dict = {i : res_list[i] for i in range(len(res_list))}
+    dict_res[market] = dict_coin_info
 
     # str_Market_result = json.dumps(list_dict)
     # json_Market_result = json.loads(str_Market_result) #json의 string 형태의 객체에서 json 형식 내용을 추출할 때 사용한다.
     # pandas_Market_result = json_normalize(json_Market_result) #json에서 데이터프레임을 쉽게 생성하도록 도움을 준다
-    pandas_Market_result = pd.DataFrame(list_dict)
-    return pandas_Market_result
+    # pandas_Market_result = pd.DataFrame(list_dict)
+
+    # print('-------판다스 하기 전에 dict형식---------')
+    # print(dict_res)
+    
+    # pandas_Market_result = pd.DataFrame(dict_res)
+    # print('-------판다스, 문제의 원인 나야나---------')
+    # print(pandas_Market_result)
+    # # 이 pandas_Market_result의 생김새 때문에 아래 get_market_all에서 key value를 올바르게 쪼갤 수 없는 거임
+    return dict_res
 
 def get_market_all():
-    list_market =[]
+    dict_market = {}
     for key in url_info.keys():
-        list_market.append(get_market(key))
-    return list_market
+        market = get_market(key)
+        dict_market[key] = market[key]
 
-print(get_market_all())
+        # print('-----dict_market을 구할거임--------')
+        # print(dict_market)
+
+        # key를 가지고 get_market(key)
+        # 결과 값을 다시 key, value로 쪼개
+        # 새로운 dict에 key, value를 연속적으로 넣어
+        #list_market.append(get_market(key))
+    #pandas_Market_result = pd.DataFrame(dict_market)
+
+    return dict_market
+
+def get_coin_info():
+    dict_market1 ={}
+    ticker = pyupbit.get_tickers()
+    dict_market1["upbit"] = ticker
+
+    return dict_market1
+
+# print(get_market_all())
+
+
+#음... 판다스로 값을 불러올 때, dict 형식이 아니기 때문에 key, value로 쪼개서 다시 배치할 수가 없다! 해결해줘!
+#test.py로 넘겨줘야 할 형식은 다음과 같다! 왜? 완상이형이 짜준 코드가 그러니까!!!!
+# {
+#     'upbit':{'BTC':100, 'ETH':200},
+#     'binance':{'BTC':300, 'ETH':400}
+# }
+
+# 이래야 test.py에서 v[market][coin] 해서 돈을 바로바로 불러올 수 있음
