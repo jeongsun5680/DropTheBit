@@ -11,12 +11,14 @@ def create_user(request):
     user_pw = request.POST['user_pw']
     email = request.POST['email']
     name = request.POST['name']
-  # dbUserData = MongoDbManager().get_user_from_db({'id':user_id,})
+    # login 페이지에서 쓰는 get_user_info 혹은 get_user_info_id 쓰면 됨
+    # dbUserData = MongoDbManager().get_user_from_db({'id':user_id,})
     if dbUserData is None:
         # return httpResponse("중복되는 아이디가 있습니다.",status =400)
         pass
     else:
         # insert
+        # dbUserData = MongoDbManager().insert_user_info({'user_id':user_id, 'user_pw':user_pw, 'email':email, 'name':name})
         # return HttpResponse(json.dumps(dbUserData), status=200)
         pass 
     
