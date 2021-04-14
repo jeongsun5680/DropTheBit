@@ -115,6 +115,7 @@ def get_market_all():
         dict_market[key] = market[key]
     return dict_market
 
+
 #음... 판다스로 값을 불러올 때, dict 형식이 아니기 때문에 key, value로 쪼개서 다시 배치할 수가 없다! 해결해줘!
 #test.py로 넘겨줘야 할 형식은 다음과 같다! 왜? 완상이형이 짜준 코드가 그러니까!!!!
 # {
