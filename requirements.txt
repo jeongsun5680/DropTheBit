@@ -14,7 +14,6 @@ docutils==0.17
 idna==2.10
 imagesize==1.2.0
 importlib-metadata==3.10.0
-
 iniconfig==1.1.1
 Jinja2==2.11.3
 MarkupSafe==1.1.1
@@ -25,9 +24,7 @@ pandas==1.2.3
 pluggy==0.13.1
 py==1.10.0
 Pygments==2.8.1
-
 PyJWT==2.0.1
-
 pyparsing==2.4.7
 pytest==6.2.3
 python-dateutil==2.8.1
@@ -48,9 +45,7 @@ sphinxcontrib-serializinghtml==1.1.4
 sqlparse==0.4.1
 tabulate==0.8.9
 toml==0.10.2
-
 typing-extensions==3.7.4.3
-
 urllib3==1.26.4
 websockets==8.1
 zipp==3.4.1
