@@ -22,7 +22,6 @@ import json
 STANDARD_MARKET = "upbit"
 TARGET_MARKET = ["binance"]
 Market_Coin_Price = market.get_market_all()
-coins_lst = get_coins_lst(STANDARD_MARKET)
 
 # 환율 바로 받아오기
 exrate = exchange_rate.Exchange_Rate() #exrate = 달러 환률 변환 호출 /type(str)
@@ -32,16 +31,13 @@ fexrate = float(exrate) #float로 형변환
 # params : 코인목록, 업비트, 거래소 목록
 def get_all_coin_info(coins, std_market, tar_market):
     all_coin_info = []
-    print('---- len ----')
-    print(len(coins))
-    num = 1
     #f = open('C:/Users/ChoiJeongSun/Desktop/Bitcoin.txt','w')
+    #f.write('[')
     for coin in coins:
-        print(num)
         data = get_one_coin_info(coin, std_market, tar_market)
-        #f.write(str(data)+'\n')
+        #f.write(str(data)+',\n')
         all_coin_info.append(data)
-        num = num+1
+    #f.write(']')
     #f.close()
     return all_coin_info
 
@@ -57,7 +53,6 @@ def get_one_coin_info(coin, std_market, tar_market):
         "name_en": get_name_en(coin),
         "standard": {
             "market": std_market,
-
             "market_KRW": std_price_KRW,
             "market_USD": std_price_USD,
         },
@@ -125,19 +120,19 @@ def get_target_lst(coin, tar_market, std_price_KRW, std_price_USD):
             target_price_KRW = get_price_KRW(coin, target)
             target_price_USD = get_price_USD(coin, target)
 
-            dict_target_info["symbol"] = target
-            dict_target_info["compare01_price_krw"] = target_price_KRW
-            dict_target_info["compare01_price_usd"] = target_price_USD
-            dict_target_info["difference01_price_krw"] = std_price_KRW - target_price_KRW
-            dict_target_info["difference01_price_usd"] = std_price_USD - target_price_USD
-            dict_target_info["difference01_price_percentage"] = ((std_price_KRW-target_price_KRW)/std_price_KRW)*100
+            dict_target_info["market"] = target
+            dict_target_info["market_KRW"] = target_price_KRW
+            dict_target_info["market_USD"] = target_price_USD
+            dict_target_info["diff_KRW"] = std_price_KRW - target_price_KRW
+            dict_target_info["diff_USD"] = std_price_USD - target_price_USD
+            dict_target_info["diff_percent"] = ((std_price_KRW-target_price_KRW)/std_price_KRW)*100
         else:
-            dict_target_info["symbol"] = target
-            dict_target_info["compare01_price_krw"] = '-'
-            dict_target_info["compare01_price_usd"] = '-'
-            dict_target_info["difference01_price_krw"] = '-'
-            dict_target_info["difference01_price_usd"] = '-'
-            dict_target_info["difference01_price_percentage"] = '-'
+            dict_target_info["market"] = target
+            dict_target_info["market_KRW"] = ''
+            dict_target_info["market_USD"] = ''
+            dict_target_info["diff_KRW"] = ''
+            dict_target_info["diff_USD"] = ''
+            dict_target_info["diff_percent"] = ''
         target_lst.append(dict_target_info)
 
     return target_lst
@@ -153,6 +148,6 @@ def get_coins_lst(std_market):
 
 # Main
 # Testing
-#coins_lst = get_coins_lst(STANDARD_MARKET)
+coins_lst = get_coins_lst(STANDARD_MARKET)
 #print(coins_lst)
-#print(get_all_coin_info(coins_lst, STANDARD_MARKET, TARGET_MARKET))
+print(get_all_coin_info(coins_lst, STANDARD_MARKET, TARGET_MARKET))

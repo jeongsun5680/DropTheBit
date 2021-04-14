@@ -14,26 +14,25 @@ url_info = {
     },
 }
 
+# API 호출 시 market 별로 다른 coin 명칭 필요
 coin_info = {
-    
+    # "upbit" : {"BTC":"KRW-BTC", "ETH":"KRW-ETH"},
+    # "binance" : {"BTC":"BTCUSDT", "ETH":"ETHUSDT"}
 }
 
-# coin_info = {
-    # "upbit" : {"BTC":"KRW-BTC", "ETH":"KRW_ETH"}
-# }
 #"bithum" : {"base_url":"https://api.bithumb.com", "sub_url":"/public/ticker/BTC", "param_key":"symbol" , "param_value":"BTCUSDT" }}
 # ----------------------------------------------------------------------------------
 
-#def get_coin_list():
+
 u_res = requests.get("https://api.upbit.com/v1/market/all", params={"isDetails":"false"})
 b_res = requests.get("https://api.binance.com/api/v3/exchangeInfo")
 u_Market_result = u_res.json()
-#print(u_Market_result)
 b_Mareket_result = b_res.json()['symbols']
 
 u_market = "upbit"
 coin_info[u_market] = {}
 for dict_coin in u_Market_result:
+    print(str(dict_coin))
     u_coin = dict_coin[url_info[u_market]["param_key"]] # u_coin = KRW-BTC
     if u_coin[0:3] == "KRW":
         data = u_coin.split('-')
@@ -115,13 +114,6 @@ def get_market_all():
         market = get_market(key)
         dict_market[key] = market[key]
     return dict_market
-
-def get_coin_info():
-    dict_market1 ={}
-    ticker = pyupbit.get_tickers()
-    dict_market1["upbit"] = ticker
-
-    return dict_market1
 
 #음... 판다스로 값을 불러올 때, dict 형식이 아니기 때문에 key, value로 쪼개서 다시 배치할 수가 없다! 해결해줘!
 #test.py로 넘겨줘야 할 형식은 다음과 같다! 왜? 완상이형이 짜준 코드가 그러니까!!!!
