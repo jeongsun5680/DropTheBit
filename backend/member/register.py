@@ -1,5 +1,5 @@
 import djongo
-from django.http import httpResponse
+from django.http import HttpResponse
 # user_id, user_pw, email, name
     # 아이디
     # 아이디 리턴 값이 있으면 -> 400
@@ -16,6 +16,7 @@ def create_user(request):
         # return httpResponse("중복되는 아이디가 있습니다.",status =400)
         pass
     else:
+        # insert
         # return HttpResponse(json.dumps(dbUserData), status=200)
         pass 
     

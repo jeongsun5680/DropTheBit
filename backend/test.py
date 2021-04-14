@@ -21,22 +21,31 @@ import json
 #USD_PER_KRW = 1200
 STANDARD_MARKET = "upbit"
 TARGET_MARKET = ["binance"]
+Market_Coin_Price = market.get_market_all()
 
+# 환율 바로 받아오기
+exrate = exchange_rate.Exchange_Rate() #exrate = 달러 환률 변환 호출 /type(str)
+exrate = exrate.replace(',','') # 문자열을 정수로 변경하기 위해 ,를 제거한다.ex)1,127.8 ->1127.8
+fexrate = float(exrate) #float로 형변환
 
 # params : 코인목록, 업비트, 거래소 목록
 def get_all_coin_info(coins, std_market, tar_market):
     all_coin_info = []
+    #f = open('C:/Users/ChoiJeongSun/Desktop/Bitcoin.txt','w')
+    #f.write('[')
     for coin in coins:
-        all_coin_info.append(get_one_coin_info(coin, std_market, tar_market))
-
+        data = get_one_coin_info(coin, std_market, tar_market)
+        #f.write(str(data)+',\n')
+        all_coin_info.append(data)
+    #f.write(']')
+    #f.close()
     return all_coin_info
 
 
 def get_one_coin_info(coin, std_market, tar_market):
 
-    market_info = market.get_market_all()
-    std_price_KRW = get_price_KRW(coin, std_market, market_info)
-    std_price_USD = get_price_USD(coin, std_market, market_info)
+    std_price_KRW = get_price_KRW(coin, std_market)
+    std_price_USD = get_price_USD(coin, std_market)
 
     one_coin_info = {
         "id": coin,
@@ -44,11 +53,10 @@ def get_one_coin_info(coin, std_market, tar_market):
         "name_en": get_name_en(coin),
         "standard": {
             "market": std_market,
-
             "market_KRW": std_price_KRW,
             "market_USD": std_price_USD,
         },
-        "target": get_target_lst(coin, tar_market, std_price_KRW, std_price_USD, market_info)
+        "target": get_target_lst(coin, tar_market, std_price_KRW, std_price_USD)
 
     }
 
@@ -74,34 +82,30 @@ def get_name_en(coin):
 
 # TODO 04: 마켓별 코인 달러 가격 구하기
 
-def get_price_USD(coin, market_name, market_info):
-    exrate = exchange_rate.Exchange_Rate() #exrate = 달러 환률 변환 호출 /type(str)
-    exrate = exrate.replace(',','') # 문자열을 정수로 변경하기 위해 ,를 제거한다.ex)1,127.8 ->1127.8
-    fexrate = float(exrate) #float로 형변환
+def get_price_USD(coin, market_name):
+    # 환율 받아오는 것은 위에서 구냥 바로 실행되게 했다
     # bianance는 if문 처리 필요
     if market_name == "binance":
-        market_price_usd = market_info[market_name][coin]
+        market_price_usd = Market_Coin_Price[market_name][coin]
     else:
-        market_price_usd = market_info[market_name][coin]/fexrate
+        market_price_usd = Market_Coin_Price[market_name][coin]/fexrate
     
     return market_price_usd
 
 
 # TODO 05: 마켓별 코인 원화 가격 구하기
-def get_price_KRW(coin, market_name, market_info):
-    exrate = exchange_rate.Exchange_Rate() #exrate = 달러 환률 변환 호출 /type(str)
-    exrate = exrate.replace(',','') # 문자열을 정수로 변경하기 위해 ,를 제거한다.ex)1,127.8 ->1127.8
-    fexrate = float(exrate) #float로 형변환
+def get_price_KRW(coin, market_name):
+    # 환율은 그냥 받아짐 fxerate
     # binance는 if문 처리 필요
     if market_name == "binance":
-        market_price_krw = market_info[market_name][coin]*fexrate
+        market_price_krw = Market_Coin_Price[market_name][coin]*fexrate
     else:
-        market_price_krw = market_info[market_name][coin]
+        market_price_krw = Market_Coin_Price[market_name][coin]
     return market_price_krw
 
 
 # TODO 06: 타겟 리스트들의 KRW값, USD값, 차이값(KRW, USD), 퍼센트 구해서 타겟 리스트로 반환
-def get_target_lst(coin, tar_market, std_price_KRW, std_price_USD, market_info):
+def get_target_lst(coin, tar_market, std_price_KRW, std_price_USD):
 
     # 타겟 마켓이 아무것도 없으면(None 이면)
     if tar_market is None:
@@ -112,15 +116,23 @@ def get_target_lst(coin, tar_market, std_price_KRW, std_price_USD, market_info):
 
     for target in tar_market:
         dict_target_info = {}
-        target_price_KRW = get_price_KRW(coin, target, market_info)
-        target_price_USD = get_price_USD(coin, target, market_info)
+        if coin in Market_Coin_Price[target]:
+            target_price_KRW = get_price_KRW(coin, target)
+            target_price_USD = get_price_USD(coin, target)
 
-        dict_target_info["symbol"] = target
-        dict_target_info["compare01_price_krw"] = target_price_KRW
-        dict_target_info["compare01_price_usd"] = target_price_USD
-        dict_target_info["difference01_price_krw"] = std_price_KRW - target_price_KRW
-        dict_target_info["difference01_price_usd"] = std_price_USD - target_price_USD
-        dict_target_info["difference01_price_percentage"] = ((std_price_KRW-target_price_KRW)/std_price_KRW)*100
+            dict_target_info["market"] = target
+            dict_target_info["market_KRW"] = target_price_KRW
+            dict_target_info["market_USD"] = target_price_USD
+            dict_target_info["diff_KRW"] = std_price_KRW - target_price_KRW
+            dict_target_info["diff_USD"] = std_price_USD - target_price_USD
+            dict_target_info["diff_percent"] = ((std_price_KRW-target_price_KRW)/std_price_KRW)*100
+        else:
+            dict_target_info["market"] = target
+            dict_target_info["market_KRW"] = ''
+            dict_target_info["market_USD"] = ''
+            dict_target_info["diff_KRW"] = ''
+            dict_target_info["diff_USD"] = ''
+            dict_target_info["diff_percent"] = ''
         target_lst.append(dict_target_info)
 
     return target_lst
@@ -128,13 +140,14 @@ def get_target_lst(coin, tar_market, std_price_KRW, std_price_USD, market_info):
 
 # TODO 07: 코인 목록 구하기
 def get_coins_lst(std_market):
-    coins_lst = ['BTC', 'ETH']
-
-    return coins_lst
+    local_coins_lst = []
+    for coin in Market_Coin_Price[std_market].keys():
+        local_coins_lst.append(coin)
+    return local_coins_lst
 
 
 # Main
 # Testing
 coins_lst = get_coins_lst(STANDARD_MARKET)
-
+#print(coins_lst)
 print(get_all_coin_info(coins_lst, STANDARD_MARKET, TARGET_MARKET))
