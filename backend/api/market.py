@@ -22,6 +22,8 @@ coin_info = {
 }
 
 def load_db():
+    # url_info = MongoDbManager().get_url_info({})
+    # coin_info = MongoDbManager().get_coin_info({})
     pass
 
 
@@ -47,6 +49,18 @@ for dict_coin in b_Mareket_result:
         if data in coin_info['upbit'].keys(): #업비트에 있는 코인에 대한 데이터만 binance에서 고르기
             coin_info[b_market][data] = b_coin
 
+
+f = open('C:/Users/ChoiJeongSun/Desktop/CoinList.txt','w')
+for market in coin_info.keys():
+    f.write('\n')
+    f.write(market)
+    f.write('\n')
+    for coin in coin_info[market].keys():
+        f.write(coin)
+        f.write(' : ')
+        f.write(coin_info[market][coin])
+        f.write('\n')
+f.close()
 
 def get_market(market):
     #res_list =[]
