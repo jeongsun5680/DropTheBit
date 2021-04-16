@@ -6,6 +6,7 @@ venv
 # backend/api/market.py
 backend/api/dd.py
 # Jeongsun Choi's gitignore
+backend/test.py
 
 # Jisu Park's gitignore
 
