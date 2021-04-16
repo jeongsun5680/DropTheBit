@@ -32,13 +32,21 @@ b_res = requests.get("https://api.binance.com/api/v3/exchangeInfo")
 u_Market_result = u_res.json()
 b_Mareket_result = b_res.json()['symbols']
 
+#f_all = open('C:/Users/ChoiJeongSun/Desktop/CoinNameAll.txt','w')
+
+#f_all.write('{\n')
 u_market = "upbit"
+name_kr = "name_kr"
+name_en = "name_en"
 coin_info[u_market] = {}
 for dict_coin in u_Market_result:
     u_coin = dict_coin[url_info[u_market]["param_key"]] # u_coin = KRW-BTC
     if u_coin[0:3] == "KRW":
         data = u_coin.split('-')
         coin_info[u_market][data[1]] = u_coin
+        #f_all.write('\''+data[1]+'\''+ ':{\''+name_kr+'\':\''+dict_coin['korean_name']+'\', \''+name_en+'\':\''+dict_coin['english_name']+'\'},\n')
+#f_all.write('}')  
+#f_all.close()      
 
 b_market = "binance"
 coin_info[b_market] = {}
@@ -50,17 +58,17 @@ for dict_coin in b_Mareket_result:
             coin_info[b_market][data] = b_coin
 
 
-f = open('C:/Users/ChoiJeongSun/Desktop/CoinList.txt','w')
-for market in coin_info.keys():
-    f.write('\n')
-    f.write(market)
-    f.write('\n')
-    for coin in coin_info[market].keys():
-        f.write(coin)
-        f.write(' : ')
-        f.write(coin_info[market][coin])
-        f.write('\n')
-f.close()
+#f = open('C:/Users/ChoiJeongSun/Desktop/CoinList.txt','w')
+#for market in coin_info.keys():
+#    f.write('\n')
+#    f.write(market)
+#    f.write('\n')
+#    for coin in coin_info[market].keys():
+#        f.write(coin)
+#        f.write(' : ')
+#        f.write(coin_info[market][coin])
+#        f.write('\n')
+#f.close()
 
 def get_market(market):
     #res_list =[]
