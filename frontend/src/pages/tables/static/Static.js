@@ -1,9 +1,10 @@
 import React from "react";
+import CoinInfo from "./coininfo"
 import {
   Row,
   Col,
   Table,
-  Progress,
+  // Progress,
   Button,
   UncontrolledButtonDropdown,
   DropdownMenu,
@@ -11,7 +12,7 @@ import {
   DropdownItem,
   // Input,
   // Label,
-  Badge,
+  // Badge,
 } from "reactstrap";
 // import { Sparklines, SparklinesBars } from "react-sparklines";
 
@@ -141,14 +142,14 @@ class Static extends React.Component {
     return (
       <div className={s.root}>
         <h2 className="page-title">
-          Tables - <span className="fw-semi-bold">Static</span>
+          Coin - <span className="fw-semi-bold">Tables</span>
         </h2>
         <Row>
           <Col>
             <Widget
               title={
                 <h5>
-                  Table <span className="fw-semi-bold">Styles</span>
+                  환율 <span className="fw-semi-bold"> 1억</span>
                 </h5>
               }
               settings
@@ -159,66 +160,14 @@ class Static extends React.Component {
                 <thead>
                   <tr className="fs-sm">
                     <th className="hidden-sm-down">#</th>
-                    <th>Picture</th>
-                    <th>Description</th>
-                    <th className="hidden-sm-down">Info</th>
-                    <th className="hidden-sm-down">Date</th>
-                    <th className="hidden-sm-down">Size</th>
-                    <th className="hidden-sm-down">Status</th>
+                    <th>Thicker</th>
+                    <th className="hidden-sm-down">Coin name(english)</th>
+                    <th className="hidden-sm-down">Standard_price</th>
+                    <th className="hidden-sm-down">Comparison_price</th>
+                    <th className="hidden-sm-down">Premium</th>
                   </tr>
                 </thead>
-                <tbody>
-                  {this.state.tableStyles.map((row) => (
-                    <tr key={row.id}>
-                      <td>{row.id}</td>
-                      <td>
-                        <img
-                          className="img-rounded"
-                          src={row.picture}
-                          alt=""
-                          height="50"
-                        />
-                      </td>
-                      <td>
-                        {row.description}
-                        {row.label && (
-                          <div>
-                            <Badge color={row.label.colorClass}>
-                              {row.label.text}
-                            </Badge>
-                          </div>
-                        )}
-                      </td>
-                      <td>
-                        <p className="mb-0">
-                          <small>
-                            Type:
-                            <span className="text-muted fw-semi-bold">
-                              &nbsp; {row.info.type}
-                            </span>
-                          </small>
-                        </p>
-                        <p>
-                          <small>
-                            Dimensions:
-                            <span className="text-muted fw-semi-bold">
-                              &nbsp; {row.info.dimensions}
-                            </span>
-                          </small>
-                        </p>
-                      </td>
-                      <td className="text-muted">{this.parseDate(row.date)}</td>
-                      <td className="text-muted">{row.size}</td>
-                      <td className="width-150">
-                        <Progress
-                          color={row.progress.colorClass}
-                          value={row.progress.percent}
-                          className="progress-sm mb-xs"
-                        />
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
+                <CoinInfo></CoinInfo>
               </Table>
               <div className="clearfix">
                 <div className="float-right">

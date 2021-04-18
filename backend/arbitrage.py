@@ -1,5 +1,7 @@
 """
 이 파일은 api 값 전달을 함수화하여 거래소 변수만 변경하면 쉽게 보낼 수 있는 파일입니다.
+from .api import binance, upbit, exchange_rate #upbit, binance, exchange_rate의 값을 호출
+import json
 
 할 일
 1. 전역 변수에 USD_PER_KRW가 환율인데 이것을 환율 사이트에서 받아오기(기존 코드 활용)

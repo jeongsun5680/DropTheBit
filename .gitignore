@@ -1,10 +1,11 @@
 .vscode
 .env
-venv
+venv/
 
 # Daeyeong Jeon's gitignore
 # backend/api/market.py
 backend/api/dd.py
+
 # Jeongsun Choi's gitignore
 backend/test.py
 
@@ -13,6 +14,8 @@ backend/test.py
 # Wansang Kim's gitignore
 djangovenv
 __pycache__
+test.py
+test2.py
 
 # Created by https://www.toptal.com/developers/gitignore/api/django,vscode
 # Edit at https://www.toptal.com/developers/gitignore?templates=django,vscode
@@ -26,6 +29,8 @@ local_settings.py
 db.sqlite3
 db.sqlite3-journal
 media
+.env
+
 
 # If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
 # in your Git repository. Update and uncomment the following line accordingly.
