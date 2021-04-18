@@ -99,10 +99,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         'NAME': 'DropTheBit',
-        "CLIENT":{
-            "host":"3.36.216.27",
-            "port": "27017",
-            "autoSource": 'DropTheBit'
+        "CLIENT": {
+            "host": "3.36.216.27",
+            "port": 27017,
         }
     }
 }

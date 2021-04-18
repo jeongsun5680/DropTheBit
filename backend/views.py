@@ -2,13 +2,16 @@
 #from rest_framework import viewsets
 #from rest_framework.decorators import api_view
 #from rest_framework.response import Response
-import arbitrage
-from main import star_coin, star_market
-from main.view_table import standard
-from member import login, mypage, register
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+from . import arbitrage
+from .main import star_coin, star_market
+from .main.view_table import standard
+from .member import login, mypage, register
 
 # http 메소드로 들어오는 get,post 방식에 따라 응답하는 것을 만들거다
-#@api_view(['GET'])
+@api_view(['GET'])
 def get_all_coin_info(request):
     user_id = request.GET.get('user_id')
     # user_id를 기반으로 DB로부터 STANDARD_MARKET 받아와야 한다
@@ -19,7 +22,7 @@ def get_all_coin_info(request):
     TARGET_MARKET = ["binance"]
     coins = arbitrage.get_coins_lst(STANDARD_MARKET)
     data = arbitrage.get_all_coin_info(coins, STANDARD_MARKET, TARGET_MARKET)
-    return data
+    return Response(data)
     #return Response()
 
 def update_standard(request):
