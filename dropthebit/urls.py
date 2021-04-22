@@ -1,5 +1,4 @@
 """dropthebit URL Configuration
-
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
 Examples:
@@ -18,14 +17,8 @@ from django.urls import path, include, re_path
 from django.views.generic import TemplateView
 
 urlpatterns = [
-<<<<<<< HEAD
-path('admin/', admin.site.urls),
-path('', include('backend.urls')),
-# path('api/', include('api.urls')),
-re_path('.*', TemplateView.as_view(template_name='index.html')),
-=======
     path('admin/', admin.site.urls),
     path('', include('backend.urls')),
+    # path('api/', include('api.urls')),
     # re_path('.*', TemplateView.as_view(template_name='index.html')),
->>>>>>> 90adb2bb22b9780a68c0b1de581b428123520167
 ]

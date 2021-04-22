@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 urlpatterns = [
-    path('', views.get_all_coins, name='home'), #jisu
+    #path('', views.get_all_coins, name='home'), #jisu
     path('main/', views.get_all_coin_info, name="get_all_coin_info"),
 
     path('main/view_table/standard', views.update_standard, name="update_standard"),
@@ -11,17 +11,9 @@ urlpatterns = [
     path('member/login/', views.get_login, name="get_login"),
     path('member/register/', views.create_user, name="create_user"),
     path('member/mypage/', views.get_mypage, name="get_mypage"),
+
     #path('detail/<str:pk>/', views.memberDetail, name="detail"),
     #path('create/', views.memberCreate, name="create"),
     #path('update/<str:pk>/', views.memberUpdate, name="update"),
     #path('delete/<str:pk>/', views.memberDelete, name="delete")
 ] 
-
-"""
-이 부분 추가된건데 뭐지?
-from . import views
-
-urlpatterns = [
-    path('', views.get_all_coins, name='home'),
-]
-"""

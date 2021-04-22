@@ -1,15 +1,17 @@
-from django.shortcuts import render
-from rest_framework import viewsets
+#from django.shortcuts import render
+#from rest_framework import viewsets
+#from rest_framework.decorators import api_view
+#from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-# 위에 jisu
-import arbitrage
-from main import star_coin, star_market
-from main.view_table import standard
-from member import login, mypage, register
+
+from . import arbitrage
+from .main import star_coin, star_market
+from .main.view_table import standard
+from .member import login, mypage, register
 
 # http 메소드로 들어오는 get,post 방식에 따라 응답하는 것을 만들거다
-#@api_view(['GET'])
+@api_view(['GET'])
 def get_all_coin_info(request):
     user_id = request.GET.get('user_id')
     # user_id를 기반으로 DB로부터 STANDARD_MARKET 받아와야 한다
@@ -20,7 +22,7 @@ def get_all_coin_info(request):
     TARGET_MARKET = ["binance"]
     coins = arbitrage.get_coins_lst(STANDARD_MARKET)
     data = arbitrage.get_all_coin_info(coins, STANDARD_MARKET, TARGET_MARKET)
-    return data
+    return Response(data)
     #return Response()
 
 def update_standard(request):
@@ -70,42 +72,3 @@ def get_mypage(request):
     user_id = request.GET.get('user_id')
     data = mypage.get_mypage(user_id)
     return HttpResponse(data)
-from django.shortcuts import render
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from .arbitrage import *
-
-# 아래 jisu
-@api_view(["GET"])
-def get_all_coins(request):
-    """
-    거래소별 코인 가격을 얻어오는 함수 호출
-    이 때, 모든 거래소에 대한 가격이 통합되어 반환된다.
-    반환된 가격을 dict 형태로 전달한다. Response({'user':'jisu'})
-    """
-    # call backend function
-    dict_total = [{
-        "id": "BTC",
-        "name_kr": "비트코인",
-        "name_en": "Bitcoin",
-        "standard":
-            {
-                "market": "upbit",
-                "market_KRW": uprice,
-                "market_USD": uprice_usd
-            },
-        "target": [
-            {
-                "market": "Binance",
-                "market_KRW": bprice_krw,
-                "market_USD": bprice,
-                "diff_KRW": uprice - bprice_krw,
-                "diff_USD": uprice_usd - bprice,
-                "diff_percent": ((uprice - bprice_krw) / uprice) * 100
-            }
-        ]
-    }]
-    return Response({'data':dict_total})
-
-
-

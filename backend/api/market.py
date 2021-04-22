@@ -1,6 +1,6 @@
 import requests, json
 import pyupbit
-import pandas as pd , dataframe
+import pandas as pd
 from django.shortcuts import render
 from django.http import HttpResponse
 
